@@ -8,15 +8,6 @@
 <hr>
 <div class="row">
   <div class="col-12">
-    <li class="list-group-item d-flex justify-content-between" *ngFor="let recipe of recipes">
-      <div>
-        <h4>{{ recipe.name }}</h4>
-        <p>{{ recipe.description }}</p>
-      </div>
-      <div>
-        <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-fluid" style="max-width: 80px !important" />
-      </div>
-    </li>
-    <app-recipe-item></app-recipe-item>
+    <app-recipe-item  *ngFor="let recipeEl of recipes" [recipe]="recipeEl" (selectedRecipe)="selectRecipe(recipeEl)"></app-recipe-item>
   </div>
 </div>
