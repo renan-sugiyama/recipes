@@ -1,9 +1,9 @@
-<a class="list-group-item d-flex justify-content-between" (click)=selectRecipe()>
+<li class="list-group-item d-flex justify-content-between" [routerLink]="[id]" routerLinkActive="active">
     <div>
       <h4>{{ recipe.name }}</h4>
       <p>{{ recipe.description }}</p>
     </div>
     <div>
-      <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-fluid" style="max-width: 80px !important" />
+      <img [src]="recipe.imagePath" alt="{{ recipe.name }}" class="img-fluid" style="height: 100px !important" />
     </div>
-  </a>
+  </li>

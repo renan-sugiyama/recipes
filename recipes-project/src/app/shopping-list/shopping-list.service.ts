@@ -1,5 +1,6 @@
 import { Ingredient } from '../shared/ingredient.model';
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -7,7 +8,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 })
 export class ShoppingListService {
 
-  ingredientsChanged = new EventEmitter<Ingredient[]>();
+  ingredientsChanged = new Subject<Ingredient[]>();
 
   ingredients: Ingredient[] = [
     new Ingredient('potatos', 4),
@@ -29,13 +30,13 @@ export class ShoppingListService {
 
     if (publishChanges) {
       // every time we added a new ingredient we need to send this event to make sure that the shopping-list will be update
-      this.ingredientsChanged.emit(this.ingredients.slice());
+      this.ingredientsChanged.next(this.ingredients.slice());
     }
   }
 
   addIngredients(ingredients: Ingredient[]) {
     ingredients.forEach( ing => this.addIngredient(ing, false));
     // this.ingredients.push(...ingredients);
-    this.ingredientsChanged.emit(this.ingredients.slice());
+    this.ingredientsChanged.next(this.ingredients.slice());
   }
 }
