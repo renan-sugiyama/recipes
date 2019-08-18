@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ShoppingListService {
-
+  startedEditing = new Subject<number>();
   ingredientsChanged = new Subject<Ingredient[]>();
 
   ingredients: Ingredient[] = [
@@ -18,6 +18,10 @@ export class ShoppingListService {
 
   getIngredients() {
     return this.ingredients.slice();
+  }
+
+  getIngredient(index: number) {
+    return this.ingredients[index];
   }
 
   addIngredient(ingredient: Ingredient, publishChanges = true) {
@@ -37,6 +41,16 @@ export class ShoppingListService {
   addIngredients(ingredients: Ingredient[]) {
     ingredients.forEach( ing => this.addIngredient(ing, false));
     // this.ingredients.push(...ingredients);
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1);
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 }
